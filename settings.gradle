@@ -1,0 +1,5 @@
+rootProject.name = 'SpringBoot-loiter-gradle-study'
+include 'springboot-webflux'
+include 'SpringBoot-aspect'
+include 'Common'
+

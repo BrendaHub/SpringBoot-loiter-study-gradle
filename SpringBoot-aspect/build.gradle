@@ -1,0 +1,37 @@
+plugins {
+    //添加spring boot 插件
+    id 'org.springframework.boot' version '2.3.2.RELEASE'
+    id 'java'
+}
+
+group 'com.loiter'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'io.spring.dependency-management'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'com.alibaba:fastjson:1.2.68'
+    implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
+    testCompile 'org.springframework.boot:spring-boot-devtools'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile project(":Common")
+}
+//sourceSets {
+//    main {
+//        java {
+//            srcDir = ['src/main/java', '../Common/src/main/java']
+//        }
+//    }
+//}
+//jar {
+//    manifest {
+//        attributes 'Main-Class':'Common'
+//    }
+//}
