@@ -2,4 +2,6 @@ rootProject.name = 'SpringBoot-loiter-gradle-study'
 include 'springboot-webflux'
 include 'SpringBoot-aspect'
 include 'Common'
+include 'SpringBoot-Redis-Gruide'
+include 'SpringBoot-Google-Cache'
 
