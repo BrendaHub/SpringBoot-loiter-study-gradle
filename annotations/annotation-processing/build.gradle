@@ -1,0 +1,21 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.2.RELEASE'
+    id 'java'
+}
+apply plugin: 'java'
+apply plugin: 'io.spring.dependency-management'
+group 'com.loiter'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // 配置依赖目录
+//    compile fileTree(include: ['*.jar'], dir: 'libs')
+//    provided fileTree(include: ['*.jar'], dir: 'providedLibs')
+//    implementation 'com.google.auto.service:auto-service:1.0-rc2'
+    compileOnly  'com.google.auto.service:auto-service:1.0-rc2'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

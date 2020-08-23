@@ -1,0 +1,37 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.2.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+}
+
+group = 'com.loiter.tran'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+}
+
+
+configurations {
+    compile.exclude module: 'spring-boot-starter-tomcat'
+}
+dependencies {
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:1.2.0'
+    // 原因： druid 依赖了 jdk 的 jconsole.jar 和 tools.jar，但是在 JDK 11 中又移除了这两个 jar 包
+//    implementation 'com.alibaba:druid:1.1.23'
+    // https://mvnrepository.com/artifact/com.alibaba/druid
+//    compile  group: 'com.alibaba', name: 'druid', version: '1.1.23'
+    implementation fileTree(dir: 'libs', includes: ['*.jar'])
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-undertow'
+    runtimeOnly 'mysql:mysql-connector-java'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
