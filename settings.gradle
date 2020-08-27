@@ -11,4 +11,6 @@ findProject(':annotations:annotation-processing')?.name = 'annotation-processing
 include 'annotations:annotation-user'
 findProject(':annotations:annotation-user')?.name = 'annotation-user'
 include 'netty-research'
+include 'Event'
+include 'EventPlus'
 
