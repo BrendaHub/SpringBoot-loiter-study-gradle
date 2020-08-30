@@ -32,6 +32,7 @@ public class SpringApplicationEventDemo {
         // b 方法 ，基于把ApplicationListener 注册成为一个 Spring Bean的方法
         // 是通过configtion 来注册成一个Bean 也可以监听到事件
         context.register(MyApplicationListener.class);
+        context.register(MyApplicationListener1.class);
         context.refresh();
         context.start();
         ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
@@ -41,9 +42,19 @@ public class SpringApplicationEventDemo {
 
     }
 
+    // 通过自定义的ApplicationListener来监听相关事件
+    static class MyApplicationListener1 implements ApplicationListener<ContextRefreshedEvent> {
+
+        @Override
+        public void onApplicationEvent(ContextRefreshedEvent event) {
+            printf(" >> MyApplicationListener1 Application Context Event ");
+        }
+    }
+
     static class MyApplicationListener implements ApplicationListener<ApplicationContextEvent> {
 
         @Override
+        @Async  // 可以异步执行
         public void onApplicationEvent(ApplicationContextEvent event) {
             printf("MyApplicationListener Event ");
         }
