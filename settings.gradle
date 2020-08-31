@@ -4,4 +4,5 @@ include 'SpringBoot-aspect'
 include 'Common'
 include 'SpringBoot-Redis-Gruide'
 include 'SpringBoot-Google-Cache'
+include 'GarbageCollection-Demo'
 
