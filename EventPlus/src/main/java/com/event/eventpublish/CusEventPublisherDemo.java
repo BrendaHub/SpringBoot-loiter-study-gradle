@@ -23,7 +23,7 @@ public class CusEventPublisherDemo implements ApplicationContextAware, Applicati
     @Autowired
     private ApplicationContext applicationContext;
 
-    @PostConstruct
+//    @PostConstruct
     private void init() {
 
     }
