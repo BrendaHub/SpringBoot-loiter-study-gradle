@@ -15,4 +15,5 @@ include 'Event'
 include 'EventPlus'
 include 'lambda'
 include 'JUC'
+include 'ShiroDemo'
 
