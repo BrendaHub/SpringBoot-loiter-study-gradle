@@ -45,6 +45,7 @@ public class Client {
         });
 
         try {
+            
             ChannelFuture sync = bootstrap.connect("127.0.0.1", 8090).sync();
             // 构造一个消息，并发送
             RequestMessage requestMessage = new RequestMessage(IdUtil.nextId(), new OrderOperation(1001, "Python Message"));
