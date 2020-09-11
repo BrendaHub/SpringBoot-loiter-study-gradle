@@ -34,7 +34,7 @@ public class MyCache {
             System.out.println (Thread.currentThread ().getName () + "\t正在读出" + key);
             TimeUnit.SECONDS.sleep(3);
             result = map.get(key);
-            System.out.println (Thread.currentThread ().getName () + "\t读出完成--" + result);
+            System.out.println (Thread.currentThread ().getName () + "  \t读出完成--" + result);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
