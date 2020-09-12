@@ -16,4 +16,5 @@ include 'EventPlus'
 include 'lambda'
 include 'JUC'
 include 'ShiroDemo'
+include 'spring-boot-protobuf'
 

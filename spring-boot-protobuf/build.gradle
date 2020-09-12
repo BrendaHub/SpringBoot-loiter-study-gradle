@@ -1,0 +1,39 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.2.RELEASE'
+    id 'java'
+}
+
+apply plugin: 'java'
+apply plugin: 'io.spring.dependency-management'
+group 'com.loiter'
+version '1.0-SNAPSHOT'
+task createJavadoc(type: Javadoc)  {
+    source = sourceSets.main.allJava
+}
+tasks.withType(JavaCompile) {
+    options.encoding ="UTF-8"
+}
+sourceSets {
+    main {
+        java {
+            srcDirs = ["src/main/java"]
+        }
+        resources {
+            srcDirs = ["src/main/resources"]
+        }
+    }
+}
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile fileTree(dir: 'lib', include: '*.jar')
+    implementation 'com.google.protobuf:protobuf-java:3.5.1'
+    implementation 'io.netty:netty-all:4.1.42.Final'
+    implementation 'org.springframework.boot:spring-boot-devtools'
+    implementation 'com.alibaba:fastjson:1.2.41'
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+//    compile fileTree(dir: '../libs', includes: ['*.jar'])
+}
