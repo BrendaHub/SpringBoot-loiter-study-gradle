@@ -8,6 +8,7 @@ import org.springframework.context.event.SimpleApplicationEventMulticaster;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
+import org.springframework.util.ErrorHandler;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -41,6 +42,13 @@ public class AsyncEventHandlerDemo {
                     new CustomizableThreadFactory("my-spring-event-thread-pool")
             );
             simpleApplicationEventMulticaster.setTaskExecutor(executorService);
+            simpleApplicationEventMulticaster.setErrorHandler(new EventErrorHandler());
+            simpleApplicationEventMulticaster.setErrorHandler(e -> {
+                System.out.println("######");
+                System.out.println("当Spring 事件异常时， 原因： " + e.getMessage());
+            });
+
+
 
             // Executors创建的线程池是具有监听功能， 会阻碍主线程运行
             // 通过监听主线程ContextCloseEvent事件， 还同步关闭异步执行的线程池
@@ -55,11 +63,27 @@ public class AsyncEventHandlerDemo {
             });
         }
 
+        context.addApplicationListener(new ApplicationListener<MySpringEvent>() {
+            @Override
+            public void onApplicationEvent(MySpringEvent event) {
+                throw new RuntimeException("故障抛出异常");
+            }
+        });
+
         // 3、 发布自定义Spring 事件
         context.publishEvent(new MySpringEvent("Hello, World"));
 
         // 4、 关闭 Spring 应用上下文
         context.close();
 
+    }
+
+    static class EventErrorHandler implements ErrorHandler{
+
+        @Override
+        public void handleError(Throwable t) {
+            System.out.println("----");
+            System.out.println("接收到异常信息" + t.fillInStackTrace().getMessage());
+        }
     }
 }
