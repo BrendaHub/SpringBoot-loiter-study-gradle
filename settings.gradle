@@ -17,4 +17,5 @@ include 'lambda'
 include 'JUC'
 include 'ShiroDemo'
 include 'spring-boot-protobuf'
+include 'spring-boot-eventbus-guava'
 
