@@ -16,11 +16,11 @@ public class MiaoDemo {
             //秒
             long second = 120;
             //转换为日时分秒
-            String days = secondToTime(second);
+            String days = secondToTime(286564);
             System.out.println(days);
             //转换为所需日期格式
-            String dateString = secondToDate(second,"yyyy-MM-dd hh:mm:ss");
-            System.out.println(dateString);
+//            String dateString = secondToDate(second,"yyyy-MM-dd hh:mm:ss");
+//            System.out.println(dateString);
         }
         /**
          * 秒转换为指定格式的日期
