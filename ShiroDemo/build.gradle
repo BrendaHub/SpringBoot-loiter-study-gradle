@@ -13,6 +13,46 @@ repositories {
     mavenCentral()
 }
 
+
+//子模块配置
+subprojects {
+
+    apply plugin: 'java'
+    apply plugin: 'maven'
+    apply plugin: "idea"
+
+    ext {
+        junitVersion = "4.11"
+        springVersion = "4.3.3.RELEASE"
+        jacksonVersion = "2.4.4"
+        compileJava.options.encoding = 'UTF-8'
+        compileTestJava.options.encoding = 'UTF-8'
+    }
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+    //配置依赖
+    dependencies {
+        compile(
+                "org.springframework.boot:spring-boot-starter-web",
+                "com.mangofactory:swagger-springmvc:1.0.2",
+                "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}",
+                "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}",
+                "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}",
+                "javax.mail:mail:1.4.7",
+                "org.slf4j:slf4j-api:1.7.10",
+                "org.slf4j:slf4j-log4j12:1.7.10",
+                "log4j:log4j:1.2.17"
+        )
+        testCompile("junit:junit:${junitVersion}")
+    }
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.apache.shiro:shiro-spring:1.4.0'

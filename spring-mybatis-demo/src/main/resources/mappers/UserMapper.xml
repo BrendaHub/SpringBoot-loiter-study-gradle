@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.loiter.mybatis.mapper.UserMapper">
+    <sql id="userColumns"> ${alias}.id,${alias}.name,${alias}.age,${alias}.`desc`, ${alias}.heigth </sql>
+    <sql id="whereSQL">${alias1}.id > #{id}</sql>
+    <resultMap id="userResultMap" type="com.loiter.mybatis.endity.User">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="age" column="age"/>
+        <result property="describe" column="desc"/>
+        <result property="heigth" column="heigth"/>
+
+    </resultMap>
+    <select id="selectUser" parameterType="int" resultMap="userResultMap">
+        select
+        <include refid="userColumns">
+            <property name="alias" value="t1"/>
+        </include>
+         from user t1
+         <where>
+             <include refid="whereSQL">
+                 <property name="alias1" value="t1"/>
+             </include>
+         </where>
+  </select>
+</mapper>

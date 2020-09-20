@@ -1,6 +1,7 @@
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
@@ -26,21 +27,23 @@ public class DemoTest {
             sum = sum + 0.01;
         }
 
-        // 结果是 true 还是 false ？
+        // 结果是 true 还是 false ？  , RoundingMode.HALF_UP
         System.out.println(sum);
         System.out.println("result is " + (sum==1.00d) );
 
-        BigDecimal _sum = new BigDecimal(0.0);
-        BigDecimal pre = new BigDecimal(0.01);
+        BigDecimal _sum = new BigDecimal("0.0");
+        BigDecimal pre = new BigDecimal("0.01");
+        BigDecimal pre1 = new BigDecimal(0.12);
         for( int i = 0 ; i < 100; i++) {
             _sum = _sum.add(pre);
         }
-        BigDecimal result = new BigDecimal(1.0);
+        BigDecimal result = new BigDecimal("1.0");
         System.out.println(_sum.doubleValue());
         System.out.println(result.doubleValue());
-        System.out.println(_sum.compareTo(result));
-        System.out.println(_sum.scale() + "           " + result.scale());
+        System.out.println("compareTo = " + _sum.compareTo(result));
+        System.out.println(_sum.scale() + "           " + result.scale() + "    "+ pre1.scale());
     }
+
 
     @Test
     public void giveRangeOfLongs_whenSummedInParallel_shouldBeEqualToExpectedTotal() throws ExecutionException, InterruptedException {
@@ -51,6 +54,7 @@ public class DemoTest {
 
         List<Long> aList = LongStream.rangeClosed(firstNum, lastNum).boxed()
                 .collect(Collectors.toList());
+        aList.stream().forEach(System.out::println);
 
         ForkJoinPool forkJoinPool = new ForkJoinPool(4);
         Long aLong = forkJoinPool.submit(
@@ -63,5 +67,18 @@ public class DemoTest {
 
         System.out.println(aLong);
         assertEquals(java.util.Optional.of((lastNum + firstNum) * lastNum / 2).get(), aLong);
+    }
+
+    @Test
+    public void TestPeek() {
+
+        long sum = LongStream.of(1, 2, 3, 4)
+                .filter(e -> e > 2)
+                .peek(e -> System.out.println("Filtered value: " + e))
+                .map(e -> e * e)
+                .peek(e -> System.out.println("Mapped value: " + e))
+                .limit(0)
+                .sum();
+        System.out.println("sum = " + sum);
     }
 }
