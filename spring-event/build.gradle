@@ -1,0 +1,38 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.4.RELEASE'
+    id 'java'
+}
+
+apply plugin: 'java'
+apply plugin: 'io.spring.dependency-management'
+group 'com.loiter'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+task createJavadoc(type: Javadoc)  {
+    source = sourceSets.main.allJava
+}
+tasks.withType(JavaCompile) {
+    options.encoding ="UTF-8"
+}
+
+
+repositories {
+    mavenCentral()
+}
+configurations {
+    compile.exclude module: 'spring-boot-starter-tomcat'
+}
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework:spring-tx'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-undertow'
+    implementation ('org.springframework.boot:spring-boot-starter-test'){
+        exclude group:'org.junit.vintage', module:'junit-vintage-engine'
+    }
+
+    implementation 'org.mockito:mockito-core'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

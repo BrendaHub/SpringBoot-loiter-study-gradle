@@ -1,8 +1,11 @@
 package com.loiter;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Optional;
 
 /**
  * @Fun Description //TODO
@@ -14,13 +17,33 @@ public class MiaoDemo {
 
         public static void main(String[] args) {
             //秒
-            long second = 120;
+            long second = 1403;
             //转换为日时分秒
             String days = secondToTime(second);
             System.out.println(days);
+            System.out.println(secondToHour(second));
             //转换为所需日期格式
-            String dateString = secondToDate(second,"yyyy-MM-dd hh:mm:ss");
-            System.out.println(dateString);
+//            String dateString = secondToDate(second,"yyyy-MM-dd hh:mm:ss");
+//            System.out.println(dateString);
+            if (BigDecimal.valueOf(0.45).compareTo(BigDecimal.valueOf(1.01)) < 0 ) {
+                System.out.println(" 小于 " + BigDecimal.valueOf(23.45).floatValue());
+            } else if (BigDecimal.valueOf(0.45).compareTo(BigDecimal.valueOf(1.01)) == 0){
+                System.out.println("== " + BigDecimal.valueOf(23.45).floatValue());
+
+            } else {
+                System.out.println("大");
+            }
+
+            if (new BigDecimal("1.01").compareTo(new BigDecimal("1.01")) < 0 ) {
+                System.out.println(" 小于 " + BigDecimal.valueOf(23.45).floatValue());
+            } else if (new BigDecimal("1.01").compareTo(new BigDecimal("1.01")) == 0){
+                System.out.println("== " + BigDecimal.valueOf(23.45).floatValue());
+
+            } else {
+                System.out.println("大");
+            }
+
+            System.out.println(BigDecimal.valueOf(23.445).setScale(2, RoundingMode.HALF_UP).toString());
         }
         /**
          * 秒转换为指定格式的日期
@@ -53,6 +76,13 @@ public class MiaoDemo {
             }else {
                 return hours+"小时，"+minutes+"分，"+second+"秒";
             }
+        }
+
+        private static String secondToHour(long second) {
+            Long secondParam = Optional.ofNullable(second).orElse(0L);
+            BigDecimal bigDecimal = BigDecimal.valueOf(secondParam);
+            BigDecimal divide = bigDecimal.divide(BigDecimal.valueOf(3600), 2, RoundingMode.HALF_UP);
+            return divide.toString() + "h";
         }
 
 }
